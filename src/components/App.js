@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      TODO: Build stuff!
+      TODO: write code
     </>
   );
 }

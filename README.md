@@ -244,7 +244,7 @@ function App() {
 }
 ```
 
-As a reminder: `useEffect` takes two arguments, and the second is a _list of dependencies_. We pass an empty array because we only want this code to run once, the very first time the component renders. If you forget this array, bad things will happen 😬
+As a reminder: `useEffect` takes two arguments, and the second is a _list of dependencies_. We pass an empty array because we only want this code to run once, the very first time the component renders. _If you forget this array, bad things will happen._ 😬
 
 In this code snippet, we're simply logging the result of our fetch request. Instead, we should use the `receiveSeatInfoFromServer` function to update our React state with that info!
 
