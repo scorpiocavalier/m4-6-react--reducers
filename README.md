@@ -378,33 +378,9 @@ function App() {
 
 ### Exercise 3: Initial UI
 
-Let's create a new component, `TicketWidget`, and render it inside `App`:
+Let's import the `TicketWidget` component, and render it inside `App`:
 
-```diff
-+ import TicketWidget from './TicketWidget';
-import GlobalStyles from './GlobalStyles';
-
-function App() {
-  const {
--   state: { numOfRows },
-    actions: { receiveSeatInfoFromServer },
-  } = React.useContext(SeatContext);
-
-  React.useEffect(() => {
-    fetch('/api/seat-availability')
-      .then(res => res.json())
-      .then(data => console.log(data));
-  }, []);
-
-  return (
-    <>
-      <GlobalStyles />
--     This venue has {numOfRows} rows!
-+     <TicketWidget />
-    </>
-  );
-}
-```
+This component is partially done. It contains some of the required UI, but not all. (I wonder if this is the work of the dev that started Slingshot Air but never finished... Seems like we're always cleaning up after someone.)
 
 This `TicketWidget` component has the following responsibilities:
 
@@ -415,7 +391,7 @@ When you're done, you should have a UI like this:
 
 ![TicketWidget initial UI](./assets/just-the-seats.png)
 
-Critically, you'll notice that there are 8 rows, with 12 seats per row. THis is because this is what the server tells us, with the `numOfSeats` and `seatsPerRow` variables. Your job is to take this data and produce this UI :)
+Critically, you'll notice that there are 8 rows, with 12 seats per row. This is because this is what the server tells us, with the `numOfSeats` and `seatsPerRow` variables. Your job is to take this data and produce this UI :)
 
 _HINT:_ Remember, the image is provided in `src/assets/seat-available.svg`. Images can be `import`ed just like JS modules!
 
@@ -456,25 +432,15 @@ _HINT:_ You'll need to use `React.useContext(SeatContext)` to get the data.
 
 There are a few things that this UI doesn't yet do:
 
-1. There should be labels along the left edge of the UI, showing the row labels
-2. There should be a thin border between rows
-3. There is no loading state. It should show a loading spinner while we wait for that data to come in.
-4. It should "gray out" any seats that are not available (already booked), according to the server data
-5. There should be a tooltip on hover that shows the price per seat (using server data).
+1. There is no loading state. It should show a loading spinner while we wait for that data to come in.
+2. It should "gray out" any seats that are not available (already booked), according to the server data
+3. There should be a tooltip on hover that shows the price per seat (using server data).
 
 This is a challenging task! Don't be afraid to ask TCs for help.
 
 At the end of this task, your UI should look like this:
 
 ![TicketWidget polished UI](./assets/ex-4.gif)
-
-_HINT:_ to avoid showing the border after the very last row — assuming you use `border-bottom` — you can wrap it in this nifty CSS selector:
-
-```css
-&:not(:last-of-type) {
-  border-bottom: 1px solid #ddd;
-}
-```
 
 _HINT:_ For the loading spinner, you can use the `CircularProgress` component from Material UI: https://material-ui.com/components/progress/
 
