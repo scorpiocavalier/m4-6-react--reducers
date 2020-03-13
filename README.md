@@ -380,7 +380,7 @@ function App() {
 
 Let's import the `TicketWidget` component, and render it inside `App`:
 
-This component is partially done. It contains some of the required UI, but not all. (I wonder if this is the work of the dev that started Slingshot Air but never finished... Seems like we're always cleaning up after someone.)
+This component is partially done. It contains some of the required UI, but not all. (I wonder if this is the work of the dev that started Slingshot Air but never finished... Seems like we're always cleaning up after someone. 😅)
 
 This `TicketWidget` component has the following responsibilities:
 

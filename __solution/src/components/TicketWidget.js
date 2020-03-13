@@ -24,7 +24,7 @@ function TicketWidget() {
 
         return (
           <Row key={rowIndex}>
-            <RowLabel style={{ lineHeight: '46px' }}>Row {rowName}</RowLabel>
+            <RowLabel>Row {rowName}</RowLabel>
             {range(seatsPerRow).map(seatIndex => {
               const seatId = `${rowName}-${getSeatNum(seatIndex)}`;
               const seat = seats[seatId];
@@ -75,6 +75,7 @@ const RowLabel = styled.div`
   font-size: 14px;
   color: white;
   font-weight: bold;
+  line-height: 46px;
 `;
 
 const SeatWrapper = styled.div`

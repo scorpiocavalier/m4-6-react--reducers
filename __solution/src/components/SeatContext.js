@@ -11,7 +11,7 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'receive-seat-info-from-server':
+    case 'receive-seat-info-from-server': {
       return {
         ...state,
         hasLoaded: true,
@@ -19,7 +19,8 @@ function reducer(state, action) {
         numOfRows: action.numOfRows,
         seatsPerRow: action.seatsPerRow,
       };
-    case 'mark-seat-as-purchased':
+    }
+    case 'mark-seat-as-purchased': {
       return {
         ...state,
         seats: {
@@ -30,6 +31,7 @@ function reducer(state, action) {
           },
         },
       };
+    }
     default:
       throw new Error(`Unrecognized action: ${action.type}`);
   }

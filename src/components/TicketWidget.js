@@ -20,7 +20,7 @@ const TicketWidget = () => {
 
         return (
           <Row key={rowIndex}>
-            <RowLabel style={{ lineHeight: '46px' }}>Row {rowName}</RowLabel>
+            <RowLabel>Row {rowName}</RowLabel>
             {range(seatsPerRow).map(seatIndex => {
               const seatId = `${rowName}-${getSeatNum(seatIndex)}`;
 
