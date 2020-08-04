@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 
 import GlobalStyles from './GlobalStyles'
+import TicketWidget from './TicketWidget'
 import { SeatContext } from './SeatContext'
 
 function App() {
@@ -10,9 +11,8 @@ function App() {
 
   useEffect(() => {
     fetch('/api/seat-availability')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
+      .then((res) => res.json())
+      .then((data) => {
         receiveSeatInfoFromServer(data)
       })
   }, [])
@@ -20,6 +20,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
+      <TicketWidget />
     </>
   )
 }

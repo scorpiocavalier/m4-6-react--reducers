@@ -11,6 +11,7 @@ const initialState = {
 
 const ACTIONS = {
   RECEIVE_SEAT: 'receive-seat-info-from-server',
+  MARK_PURCHASED_SEAT: 'mark-seat-as-purchased',
 }
 
 const reducer = (state, action) => {
@@ -18,7 +19,15 @@ const reducer = (state, action) => {
 
   switch (type) {
     case ACTIONS.RECEIVE_SEAT:
-      return { ...data }
+      return {
+        ...state,
+        ...data,
+      }
+    case ACTIONS.MARK_PURCHASED_SEAT:
+      return {
+        ...state,
+        ...data,
+      }
     default:
       return state
   }
@@ -30,7 +39,14 @@ export const SeatProvider = ({ children }) => {
   const receiveSeatInfoFromServer = (data) => {
     dispatch({
       type: ACTIONS.RECEIVE_SEAT,
-      ...data,
+      data,
+    })
+  }
+
+  const markSeatAsPurchased = (data) => {
+    dispatch({
+      type: ACTIONS.MARK_PURCHASED_SEAT,
+      data,
     })
   }
 
@@ -40,6 +56,7 @@ export const SeatProvider = ({ children }) => {
         state,
         actions: {
           receiveSeatInfoFromServer,
+          markSeatAsPurchased,
         },
       }}
     >
