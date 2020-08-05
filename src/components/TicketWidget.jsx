@@ -35,8 +35,12 @@ export default () => {
                     const price = seats[seatId].price
                     return (
                       <Seat
-                        key={seatId}
-                        props={{ rowName, seatNum, price, isBooked }}
+                        key={ seatId }
+                        rowName={ rowName }
+                        seatNum={ seatNum }
+                        selectedSeatId={ seatId }
+                        isBooked={isBooked}
+                        price={ price }
                       />
                     )
                   })}
