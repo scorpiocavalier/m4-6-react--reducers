@@ -9,7 +9,7 @@ import Seat from './seat/Seat'
 
 export default () => {
   const {
-    state: { hasLoaded, numOfRows, seatsPerRow, bookedSeats },
+    state: { hasLoaded, numOfRows, seatsPerRow, seats, bookedSeats },
   } = useContext(SeatContext)
 
   return (
@@ -29,12 +29,15 @@ export default () => {
               return (
                 <Row key={rowIndex}>
                   {range(seatsPerRow).map((seatIndex) => {
-                    const seatId = `${ rowName }-${ getSeatNum(seatIndex) }`
+                    const seatNum = getSeatNum(seatIndex)
+                    const seatId = `${rowName}-${seatNum}`
                     const isAvailable = bookedSeats[seatId]
+                    const price = seats[seatId].price
                     return (
-                      <SeatWrapper key={seatId}>
-                        <Seat isTaken={isAvailable} />
-                      </SeatWrapper>
+                      <Seat
+                        key={seatId}
+                        props={{ rowName, seatNum, price, isAvailable }}
+                      />
                     )
                   })}
                 </Row>
@@ -90,8 +93,4 @@ const Row = styled.div`
   &:not(:last-of-type) {
     border-bottom: 1px solid #ddd;
   }
-`
-
-const SeatWrapper = styled.div`
-  padding: 5px;
 `
