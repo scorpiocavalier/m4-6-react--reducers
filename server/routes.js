@@ -12,7 +12,7 @@ const row = [ "A", "B", "C", "D", "E", "F", "G", "H" ]
 for (let r = 0; r < row.length; r++) {
   for (let s = 1; s < 13; s++) {
     seats[ `${ row[ r ] }-${ s }` ] = {
-      price: 225,
+      price: 400 - r * 35,
       isBooked: false,
     }
   }
