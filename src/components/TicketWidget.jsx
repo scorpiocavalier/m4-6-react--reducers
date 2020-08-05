@@ -31,12 +31,12 @@ export default () => {
                   {range(seatsPerRow).map((seatIndex) => {
                     const seatNum = getSeatNum(seatIndex)
                     const seatId = `${rowName}-${seatNum}`
-                    const isAvailable = bookedSeats[seatId]
+                    const isBooked = bookedSeats[seatId]
                     const price = seats[seatId].price
                     return (
                       <Seat
                         key={seatId}
-                        props={{ rowName, seatNum, price, isAvailable }}
+                        props={{ rowName, seatNum, price, isBooked }}
                       />
                     )
                   })}

@@ -61,4 +61,8 @@ export default createGlobalStyle`
     color: white;
   }
 
+  button {
+    border: none;
+  }
+
 `;
