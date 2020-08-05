@@ -22,6 +22,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         ...data,
+        hasLoaded: !state.hasLoaded,
       }
     case ACTIONS.MARK_PURCHASED_SEAT:
       return {

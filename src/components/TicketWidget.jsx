@@ -9,36 +9,38 @@ import Seat from './seat/Seat'
 
 export default () => {
   const {
-    state: { hasLoaded, numOfRows, seatsPerRow },
+    state: { hasLoaded, numOfRows, seatsPerRow, bookedSeats },
   } = useContext(SeatContext)
 
   return (
     <CenterWrapper>
-      {!hasLoaded ? (
+      {hasLoaded ? (
         <Wrapper>
-          {/* [0, 1, 2, 3....] */}
-          {range(numOfRows).map((rowIndex) => {
-            // A, B, C...
-            const rowName = getRowName(rowIndex)
+          <RowWrapper>
+            {range(numOfRows).map((rowIndex) => {
+              const rowName = getRowName(rowIndex)
+              return <RowLabel key={rowName}>Row {rowName}</RowLabel>
+            })}
+          </RowWrapper>
 
-            return (
-              <Row key={rowIndex}>
-                {/* Row A, Row B, Row C... */}
-                <RowLabel>Row {rowName}</RowLabel>
-                {/* [0, 1, 2, 3....] */}
-                {range(seatsPerRow).map((seatIndex) => {
-                  // A1, A2, A3...
-                  const seatId = `${rowName}-${getSeatNum(seatIndex)}`
-
-                  return (
-                    <SeatWrapper key={seatId}>
-                      <Seat seatId={seatId} />
-                    </SeatWrapper>
-                  )
-                })}
-              </Row>
-            )
-          })}
+          <SeatMapWrapper>
+            {range(numOfRows).map((rowIndex) => {
+              const rowName = getRowName(rowIndex)
+              return (
+                <Row key={rowIndex}>
+                  {range(seatsPerRow).map((seatIndex) => {
+                    const seatId = `${ rowName }-${ getSeatNum(seatIndex) }`
+                    const isAvailable = bookedSeats[seatId]
+                    return (
+                      <SeatWrapper key={seatId}>
+                        <Seat isTaken={isAvailable} />
+                      </SeatWrapper>
+                    )
+                  })}
+                </Row>
+              )
+            })}
+          </SeatMapWrapper>
         </Wrapper>
       ) : (
         <CircularProgress color="primary" />
@@ -55,8 +57,28 @@ const CenterWrapper = styled.div`
 `
 
 const Wrapper = styled.div`
+  display: flex;
+`
+
+const RowWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  padding: 8px;
+`
+
+const RowLabel = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  background: #222;
+  height: 100%;
+  padding: 0 10px;
+`
+
+const SeatMapWrapper = styled.div`
   background: #eee;
-  border: 1px solid #ccc;
   border-radius: 3px;
   padding: 8px;
 `
@@ -65,15 +87,9 @@ const Row = styled.div`
   display: flex;
   position: relative;
 
-  /* each children except the last */
   &:not(:last-of-type) {
     border-bottom: 1px solid #ddd;
   }
-`
-
-const RowLabel = styled.div`
-  font-weight: bold;
-  color: black;
 `
 
 const SeatWrapper = styled.div`
