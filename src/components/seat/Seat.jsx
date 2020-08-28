@@ -5,6 +5,7 @@ import 'tippy.js/dist/tippy.css'
 
 import { BookingContext, ACTION } from '../BookingContext'
 import svgSeatAvailable from '../../assets/seat-available.svg'
+import { PurchaseModal } from '../PurchaseModal'
 
 export default ({ selectedSeatId, rowName, seatNum, price, isBooked }) => {
   const { dispatch } = useContext(BookingContext)
@@ -23,12 +24,17 @@ export default ({ selectedSeatId, rowName, seatNum, price, isBooked }) => {
         disabled={isBooked}
       >
         <Seat isBooked={isBooked} src={svgSeatAvailable} alt="seat" />
+        <PurchaseModal />
       </Button>
     </Tippy>
   )
 }
 
-const Button = styled.button``
+const Button = styled.button`
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 const Seat = styled.img`
   padding: 5px;

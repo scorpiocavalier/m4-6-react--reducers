@@ -12,6 +12,7 @@ const STATUS = {
 
 export const ACTION = {
   BEGIN_BOOKING_PROCESS: 'begin-booking-process',
+  CANCEL_BOOKING_PROCESS: 'cancel-booking-process',
 }
 
 const initialState = {
@@ -23,9 +24,12 @@ const initialState = {
 
 const reducer = (state, action) => {
   const { type, payload } = action
+  
   switch (type) {
     case ACTION.BEGIN_BOOKING_PROCESS:
       return { ...state, ...payload, status: STATUS.SEAT_SELECTED }
+    case ACTION.CANCEL_BOOKING_PROCESS:
+      return { initialState }
     default:
       return state
   }
