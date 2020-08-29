@@ -13,6 +13,9 @@ const STATUS = {
 export const ACTION = {
   BEGIN_BOOKING_PROCESS: 'begin-booking-process',
   CANCEL_BOOKING_PROCESS: 'cancel-booking-process',
+  PURCHASE_TICKET_REQUEST: 'purchase-ticket-request',
+  PURCHASE_TICKET_FAILURE: 'purchase-ticket-failure',
+  PURCHASE_TICKET_SUCCESS: 'purchase-ticket-success',
 }
 
 const initialState = {
@@ -24,12 +27,18 @@ const initialState = {
 
 const reducer = (state, action) => {
   const { type, payload } = action
-  
+
   switch (type) {
     case ACTION.BEGIN_BOOKING_PROCESS:
       return { ...state, ...payload, status: STATUS.SEAT_SELECTED }
     case ACTION.CANCEL_BOOKING_PROCESS:
-      return { initialState }
+      return { ...initialState }
+    case ACTION.PURCHASE_TICKET_REQUEST:
+      return { ...state, status: STATUS.AWAITING_RESPONSE }
+    case ACTION.PURCHASE_TICKET_FAILURE:
+      return { ...state, status: STATUS.ERROR, error: payload.message }
+    case ACTION.PURCHASE_TICKET_SUCCESS:
+      return { ...initialState, status: STATUS.PURCHASED }
     default:
       return state
   }

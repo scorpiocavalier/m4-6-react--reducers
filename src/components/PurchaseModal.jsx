@@ -10,6 +10,49 @@ export const PurchaseModal = ({ open, onClose }) => {
   const { state, dispatch } = useContext(BookingContext)
   const [creditCard, setCreditCard] = useState('')
   const [expiration, setExpiration] = useState('')
+  const [response, setResponse] = useState('')
+  const [responseColor, setResponseColor] = useState('')
+
+  const handlePurchase = () => {
+    dispatch({ type: ACTION.PURCHASE_TICKET_REQUEST })
+
+    try {
+      fetch('/api/book-seat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          seatId: state.selectedSeatId,
+          creditCard: creditCard,
+          expiration: expiration,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('data', data)
+          if (data.success) {
+            dispatch({ type: ACTION.PURCHASE_TICKET_SUCCESS })
+            setResponse('Your ticket purchase was successful!')
+            setResponseColor('green')
+          } else {
+            dispatch({
+              type: ACTION.PURCHASE_TICKET_FAILURE,
+              payload: { message: data.message },
+            })
+            setResponse(data.message)
+            setResponseColor('red')
+          }
+        })
+        .then(dispatch({ type: ACTION.PURCHASE_TICKET_SUCCESS }))
+    } catch (err) {
+      console.log('err.message', err.message)
+      dispatch({
+        type: ACTION.PURCHASE_TICKET_FAILURE,
+        payload: { message: err.message },
+      })
+      setResponse(err.message)
+      setResponseColor('red')
+    }
+  }
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -47,10 +90,15 @@ export const PurchaseModal = ({ open, onClose }) => {
               onChange={(e) => setExpiration(e.target.value)}
               required
             />
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handlePurchase}
+            >
               Purchase
             </Button>
           </Form>
+          <Response color={responseColor}>{response}</Response>
         </PaymentWrapper>
       </Wrapper>
     </Dialog>
@@ -111,4 +159,10 @@ const Form = styled.form`
   grid-column-gap: 20px;
   grid-template-columns: 3fr 1.5fr 2fr;
   padding: 30px;
+`
+
+const Response = styled.p`
+  color: ${(p) => p.color};
+  padding: 30px;
+  padding-top: 0;
 `
