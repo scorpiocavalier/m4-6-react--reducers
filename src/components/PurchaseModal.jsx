@@ -33,8 +33,20 @@ export const PurchaseModal = ({ open, onClose }) => {
         <PaymentWrapper>
           <PaymentTitle>Enter payment details</PaymentTitle>
           <Form>
-            <TextField label="Credit card" variant="outlined" required />
-            <TextField label="Expiration" variant="outlined" required />
+            <TextField
+              label="Credit card"
+              variant="outlined"
+              value={creditCard}
+              onChange={(e) => setCreditCard(e.target.value)}
+              required
+            />
+            <TextField
+              label="Expiration"
+              variant="outlined"
+              value={expiration}
+              onChange={(e) => setExpiration(e.target.value)}
+              required
+            />
             <Button variant="contained" color="primary">
               Purchase
             </Button>
